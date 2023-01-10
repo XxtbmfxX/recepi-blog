@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,
+  maximum-scale=5" />
+
+    <link rel="icon" href="devchallenges.png" />
+
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://devchallenges.io/" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Devchallenges</title>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="Header">
+      <h1>Classic Cheesecake Recipe</h1>
+      <div class="Dots">
+        <span class="material-symbols-outlined"> format_quote </span>
+      </div>
+      <p>
+        Look no further for a creamy and ultra smooth classic cheesecake recipe!
+        Paired with a buttery graham cracker crust, no one can deny its simple
+        decadence. For the best results, bake in a water bath.
+      </p>
+      <div class="Header_hero">
+        <img src="photo1.png" alt="cheesecake" srcset="" />
+      </div>
+    </header>
+
+    <div class="Main">
+      <!-- stast -->
+      <section class="Main_stats">
+        <div class="Main_stats-top">
+          <span class="material-symbols-outlined"> local_dining </span>
+          <div class="Stats_top-ammount">
+            <small> YIELDS </small>
+            <br />
+            <small> 12 servings </small>
+          </div>
+        </div>
+        <div class="Main_stats-bottom">
+          <span class="Main_stats-item">
+            <span class="material-symbols-outlined"> schedule </span>
+            <div class="Main_stats-item-data">
+              <small> PREP TIME </small>
+
+              <small> 45 minutes </small>
+            </div>
+          </span>
+          <span class="Main_stats-item"
+            ><span class="material-symbols-outlined"> schedule </span>
+            <div class="Main_stats-item-data">
+              <small> COOK TIME </small>
+              <small> 1 hour </small>
+            </div>
+          </span>
+          <span class="Main_stats-item"
+            ><span class="material-symbols-outlined"> schedule </span>
+            <div class="Main_stats-item-data">
+              <small> TOTAL TIME </small>
+              <small> 7.75 hours </small>
+            </div>
+          </span>
+        </div>
+      </section>
+
+      <!-- ingredients -->
+
+      <section class="Main_ingredients">
+        <h2>Ingredients</h2>
+      </section>
+      <!-- instructions -->
+      <section class="Main_instructions">
+        <h2>Instructions</h2>
+        <ul class="Main_instructions-list"></ul>
+      </section>
+    </div>
+
+    <section class="source">
+      <p>
+        Source:
+        <a
+          target="_blank"
+          href="https://sallysbakingaddiction.com/classic-cheesecake/ "
+          >https://sallysbakingaddiction.com/classic-cheesecake/
+        </a>
+      </p>
+    </section>
+
+    <footer class="Footer">
+      <small>
+        created by
+        <a href="https://devchallenges.io/portfolio/XxtbmfxX">Toro</a> -
+        <a href="https://devchallenges.io">dev.Challenges.io</a>
+      </small>
+    </footer>
+
+    <script>
+      const MainIngredients = document.querySelector(".Main_ingredients");
+      const ingredientsList = document.querySelector(".Main_ingredients-list");
+
+      const Instructions = document.querySelector(".Main_instructions-list");
+
+      fetch("./data.json")
+        .then((data) => data.json())
+        .then((resp) => {
+          //ingredients
+
+          resp.components.forEach((e) => {
+            const item = document.createElement("article");
+            const title = document.createElement("h3");
+            title.innerText = e.title;
+
+            item.className = "Main_ingredients-item";
+            item.appendChild(title);
+
+            e.ingredients.forEach((ingredient) => {
+              const check = document.createElement("ul");
+              check.className = "List_item";
+              check.innerHTML = `
+              <li>
+                <input type="checkbox">
+                <span>${ingredient}</span>
+                </li>
+              `;
+              item.appendChild(check);
+            });
+
+            MainIngredients.appendChild(item);
+          });
+
+          //instructions
+          resp.instructions.forEach((e) => {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `
+            
+              <small class="List_number" >
+                ${resp.instructions.indexOf(e) + 1}
+                </small>
+
+                ${e}
+
+            `;
+            Instructions.appendChild(listItem);
+          });
+        });
+    </script>
+  </body>
+</html>
